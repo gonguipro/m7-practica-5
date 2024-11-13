@@ -1,8 +1,17 @@
 [
     {
+<<<<<<< HEAD
       "username": "admin",
       "password": "admin123", 
       "role": "admin"
     }
   ]
   
+=======
+        "id": 1,
+        "username": "admin",
+        "password": "$2y$10$7P7ZxFgydsXig.VFpdU4ee4Zm2lUNNPG9zdy.TnKTqH7U5rW0ckZe", 
+        "role": "admin"
+    }
+]
+>>>>>>> 11556443631afba7ef99b48c3f7e03e1d2eb9ca8
