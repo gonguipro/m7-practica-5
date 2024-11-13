@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
                 <td><?= $user['username'] ?></td>
                 <td><?= $user['role'] ?></td>
                 <td>
-                    <form method="POST" action="php/admin.php" style="display:inline;">
+                    <form method="POST" action="admin.php" style="display:inline;">
                         <button type="submit" name="delete_user" value="<?= $user['id'] ?>">Eliminar</button>
                     </form>
                 </td>
