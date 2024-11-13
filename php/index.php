@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Leer los usuarios desde el archivo JSON
-    $users = json_decode(file_get_contents('../data/users.json'), true); // Ruta ajustada para acceder a data
+    $users = json_decode(file_get_contents('../json/users.json'), true); // Ruta ajustada para acceder a data
 
     // Verificar si el usuario existe y si la contraseña es correcta
     foreach ($users as $user) {
