@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
 </head>
 <body>
     <h2>Bienvenido, Administrador</h2>
-    <a href="index.php">Cerrar sesión</a>
+    <a href="logout.php">Cerrar sesión</a>
 
     <h3>Crear nuevo usuario</h3>
     <form method="POST" action="dashboard.php">
