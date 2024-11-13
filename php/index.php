@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h2>Formulario de Ingreso</h2>
-    <form method="POST" action="php/index.php">
+    <form method="POST" action="index.php">
         <div>
             <label for="username">Usuario</label>
             <input type="text" name="username" required>
