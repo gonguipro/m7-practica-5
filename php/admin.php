@@ -4,7 +4,7 @@ session_start();
 
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: php/index.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])){
     });
 
     file_put_contents('data/users.json', json_encode(array_values($users), JSON_PRETTY_PRINT));
-    header('Location: php/admin.php');  // Redirigir después de eliminar el usuario
+    header('Location: admin.php');  // Redirigir después de eliminar el usuario
     exit();
 }
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
 
     $users[] = ['id' => $id, 'username' => $username, 'password' => $password, 'role' => $role];
     file_put_contents('data/users.json', json_encode($users, JSON_PRETTY_PRINT));
-    header('Location: php/admin.php');  // Redirigir después de crear un nuevo usuario
+    header('Location: admin.php');  // Redirigir después de crear un nuevo usuario
     exit();
 }
 ?>
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
     <a href="logout.php">Cerrar sesión</a>
 
     <h3>Crear nuevo usuario</h3>
-    <form method="POST" action="php/admin.php">
+    <form method="POST" action="admin.php">
         <input type="text" name="username" placeholder="Nombre de usuario" required>
         <input type="password" name="password" placeholder="Contraseña" required>
         <select name="role">
