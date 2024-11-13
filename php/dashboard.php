@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 }
 
 // Leer los usuarios desde el archivo JSON
-$users = json_decode(file_get_contents('../data/users.json'), true);
+$users = json_decode(file_get_contents('../data/user.json'), true);
 
 // Lógica para eliminar usuarios
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
