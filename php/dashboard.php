@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Ruta del archivo JSON
-    $filePath = '../json/user.json';
+    $filePath = '../data/user.json';
 
     // Leer el contenido actual de user.json
     if (file_exists($filePath)) {
