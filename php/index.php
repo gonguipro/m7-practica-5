@@ -3,7 +3,7 @@ session_start();
 
 // Si ya está autenticado, redirigir al dashboard
 if (isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php');  // Redirige al dashboard dentro de la misma carpeta
+    header('Location: dashboard.php');
     exit();
 }
 
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Leer los usuarios desde el archivo JSON
-    $users = json_decode(file_get_contents('../data/user.json'), true);
+    $users = json_decode(file_get_contents('../data/user.json'), true); // Ruta ajustada
 
     // Verificar si el usuario existe y si la contraseña es correcta
     foreach ($users as $user) {
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
-            header('Location: dashboard.php');  // Redirige al dashboard dentro de la misma carpeta
+            header('Location: dashboard.php');  // Redirige al dashboard
             exit();
         }
     }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h2>Formulario de Ingreso</h2>
-    <form method="POST" action="index.php">  <!-- Sin 'php/' ya que index.php está en la misma carpeta -->
+    <form method="POST" action="index.php">
         <div>
             <label for="username">Usuario</label>
             <input type="text" name="username" required>
