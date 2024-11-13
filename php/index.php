@@ -3,7 +3,7 @@ session_start();
 
 // Si ya está autenticado, redirigir al dashboard
 if (isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php');
+    header('Location: admin.php');
     exit();
 }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
-            header('Location: dashboard.php');  // Redirige al dashboard
+            header('Location: admin.php');  // Redirige al dashboard
             exit();
         }
     }
