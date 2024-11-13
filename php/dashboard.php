@@ -1,38 +1,39 @@
 <?php
-// admin.php (ejemplo para crear usuario)
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+session_start();
+
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header('Location: php/index.php');
+    exit();
+}
+
+//Leer los usuarios desde el archivo JSON
+$users = json_decode(file_get_contents('../data/user.json'), true);
+
+//logica para eliminar usuarios
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])){
+    $user_id = $_POST['delete_user'];
+    $users = array_filter($users, function ($user) use ($user_id){
+        return $user['id'] != $user_id;
+    });
+
+    file_put_contents('data/users.json', json_encode(array_values($users), JSON_PRETTY_PRINT));
+    header('Location: php/admin.php');  // Redirigir después de eliminar el usuario
+    exit();
+}
+
+// Lógica para crear nuevos usuarios
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $role = $_POST['role'];
+    $id = count($users) + 1;
 
-    // Ruta del archivo JSON
-    $filePath = '../data/user.json';
-
-    // Leer el contenido actual de user.json
-    if (file_exists($filePath)) {
-        $users = json_decode(file_get_contents($filePath), true);
-    } else {
-        $users = [];
-    }
-
-    // Generar el ID para el nuevo usuario
-    $newUserId = count($users) + 1;
-
-    // Crear un nuevo usuario con contraseña encriptada
-    $newUser = [
-        "id" => $newUserId,
-        "username" => $username,
-        "password" => password_hash($password, PASSWORD_DEFAULT), // Encriptar la contraseña
-        "role" => "user"
-    ];
-
-    // Agregar el nuevo usuario al array de usuarios
-    $users[] = $newUser;
-
-    // Guardar el array actualizado en user.json
-    file_put_contents($filePath, json_encode($users, JSON_PRETTY_PRINT));
-
-    echo "Usuario creado exitosamente.";
+    $users[] = ['id' => $id, 'username' => $username, 'password' => $password, 'role' => $role];
+    file_put_contents('data/users.json', json_encode($users, JSON_PRETTY_PRINT));
+    header('Location: php/admin.php');  // Redirigir después de crear un nuevo usuario
+    exit();
 }
 ?>
 
@@ -41,20 +42,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Usuario</title>
+    <title>Admin - Gestión de Usuarios</title>
 </head>
 <body>
-    <h2>Crear Usuario</h2>
-    <form method="POST" action="admin.php">
-        <div>
-            <label for="username">Usuario</label>
-            <input type="text" name="username" required>
-        </div>
-        <div>
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" required>
-        </div>
-        <button type="submit">Crear Usuario</button>
+    <h2>Bienvenido, Administrador</h2>
+    <a href="logout.php">Cerrar sesión</a>
+
+    <h3>Crear nuevo usuario</h3>
+    <form method="POST" action="php/admin.php">
+        <input type="text" name="username" placeholder="Nombre de usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <select name="role">
+            <option value="user">Usuario</option>
+            <option value="admin">Administrador</option>
+        </select>
+        <button type="submit" name="create_user">Crear usuario</button>
     </form>
+
+    <h3>Lista de usuarios</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+        <?php foreach ($users as $user): ?>
+            <tr>
+                <td><?= $user['id'] ?></td>
+                <td><?= $user['username'] ?></td>
+                <td><?= $user['role'] ?></td>
+                <td>
+                    <form method="POST" action="php/admin.php" style="display:inline;">
+                        <button type="submit" name="delete_user" value="<?= $user['id'] ?>">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 </body>
 </html>
