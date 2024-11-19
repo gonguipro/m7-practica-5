@@ -4,5 +4,11 @@
         "username": "admin",
         "password": "$2y$10$92jxcBDu56BSfyeeD\/x\/Tem5EcCntpEoStDYfrbwIcdqPzOF7jMR2",
         "role": "admin"
+    },
+    {
+        "id": 2,
+        "username": "iker",
+        "password": "$2y$10$C.E6iRLyKMdLsFcZ5UpEeuoQETCwQ3u9XUtZv.6Pf0Mym0IwMjlxi",
+        "role": "user"
     }
 ]
