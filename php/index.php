@@ -1,10 +1,16 @@
 <?php
 session_start();
 
-// Si ya está autenticado, redirigir al dashboard
+// Si ya está autenticado y el rol es 'admin', redirigir a admin.php
 if (isset($_SESSION['user_id'])) {
-    header('Location: admin.php');
-    exit();
+    // Verificar el rol del usuario
+    if ($_SESSION['role'] === 'admin') {
+        header('Location: admin.php');  // Si es admin, lo redirigimos a admin.php
+        exit();
+    } else {
+        header('Location: recom.php');  // Si no es admin, lo redirigimos a otra página (por ejemplo, panel de usuario)
+        exit();
+    }
 }
 
 // Lógica para el inicio de sesión
@@ -21,8 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Inicio de sesión exitoso
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
-            header('Location: admin.php');  // Redirige al dashboard
+            $_SESSION['role'] = $user['role']; // Guardamos el rol del usuario
+            
+            // Redirigir dependiendo del rol
+            if ($_SESSION['role'] === 'admin') {
+                header('Location: admin.php');  // Si es admin, lo redirigimos a admin.php
+            } else {
+                header('Location: recom.php');  // Si no es admin, lo redirigimos a un panel de usuario
+            }
             exit();
         }
     }
