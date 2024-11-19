@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// Verificar si el usuario está autenticado y si tiene rol de administrador
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo "<p>Acceso denegado. Solo los administradores pueden acceder a esta página.</p>";
     echo "<a href='index.php'>Volver al inicio</a>";
     exit();
 }
 
-// Leer los usuarios desde el archivo JSON
+//Leer los usuarios desde el archivo JSON
 $users = json_decode(file_get_contents('../data/user.json'), true);
 
 // Lógica para eliminar usuarios
@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
         return $user['id'] != $user_id;
     });
 
-    file_put_contents('../data/user.json', json_encode(array_values($users), JSON_PRETTY_PRINT));
-    header('Location: admin.php'); // Redirigir después de eliminar el usuario
+    file_put_contents('data/users.json', json_encode(array_values($users), JSON_PRETTY_PRINT));
+    header('Location: admin.php');  // Redirigir después de eliminar el usuario
     exit();
 }
 
@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
     $id = count($users) + 1;
 
     $users[] = ['id' => $id, 'username' => $username, 'password' => $password, 'role' => $role];
-    file_put_contents('../data/user.json', json_encode($users, JSON_PRETTY_PRINT));
-    header('Location: admin.php'); // Redirigir después de crear un nuevo usuario
+    file_put_contents('data/users.json', json_encode($users, JSON_PRETTY_PRINT));
+    header('Location: admin.php');  // Redirigir después de crear un nuevo usuario
     exit();
 }
 ?>
