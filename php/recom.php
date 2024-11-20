@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 
     <br><br>
+    <!--Enlace para volver a atras al menu-->
+    <a href="menu_usuario.php">Volver al menu</a>
     <!-- Enlace para cerrar sesión -->
     <a href="logout.php">Cerrar sesión</a>
 </body>

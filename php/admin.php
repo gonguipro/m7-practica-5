@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $role = $_POST['role'];
     $id = count($users) + 1;
-
+ 
     // Agregar el nuevo usuario al array
     $users[] = [
         'id' => $id,

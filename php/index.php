@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
         header('Location: admin.php');  // Si es admin, lo redirigimos a admin.php
         exit();
     } else {
-        header('Location: recom.php');  // Si no es admin, lo redirigimos a otra página (por ejemplo, panel de usuario)
+        header('Location: menu_usuario.php');  // Si no es admin, lo redirigimos a otra página menu_usuario.php
         exit();
     }
 }
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($_SESSION['role'] === 'admin') {
                 header('Location: admin.php');  // Si es admin, lo redirigimos a admin.php
             } else {
-                header('Location: recom.php');  // Si no es admin, lo redirigimos a un panel de usuario
+                header('Location: menu_usuario.php');  // Si no es admin, lo redirigimos al menu de usuario
             }
             exit();
         }
