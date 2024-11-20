@@ -10,5 +10,11 @@
         "username": "iker",
         "password": "$2y$10$C.E6iRLyKMdLsFcZ5UpEeuoQETCwQ3u9XUtZv.6Pf0Mym0IwMjlxi",
         "role": "user"
+    },
+    {
+        "id": 3,
+        "username": "luquillas",
+        "password": "$2y$10$x9544VkvxPDMV903bv8p..G1kvMXq9bknhCgqWN5T11Vx9V0yDLXy",
+        "role": "user"
     }
 ]

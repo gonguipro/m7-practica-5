@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <div class="content">
         <a class="recom" href="recom.php">Recomendación</a>
-        <a class="recom" href="spotify">Reproductor de música</a>
+        <a class="recom" href="spotify.php">Reproductor de música</a>
         <br>
         <a href="logout.php">Cerrar sesión</a>
     </div>
