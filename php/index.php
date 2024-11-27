@@ -26,13 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Inicio de sesión exitoso
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role']; // Guardamos el rol del usuario
+            $_SESSION['role'] = $user['role'];
 
             // Redirigir dependiendo del rol
             if ($_SESSION['role'] === 'admin') {
-                header('Location: admin.php');  // Si es admin, lo redirigimos a admin.php
+                header('Location: admin.php');
             } else {
-                header('Location: menu_usuario.php');  // Si no es admin, lo redirigimos al menu de usuario
+                header('Location: menu_usuario.php');
             }
             exit();
         }
@@ -49,21 +49,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Formulario de Ingreso</h2>
-    <form method="POST" action="index.php">
-        <div>
-            <label for="username">Usuario</label>
-            <input type="text" name="username" required>
-        </div>
-        <div>
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" required>
-        </div>
-        <button type="submit">Iniciar sesión</button>
-    </form>
+<body class="bg-light">
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>Iniciar Sesión</h3>
+            </div>
+            <div class="card-body">
+                <?php if (isset($error)): ?>
+                    <div class="alert alert-danger text-center" role="alert">
+                        <?= $error ?>
+                    </div>
+                <?php endif; ?>
 
-    <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
+                <form method="POST" action="index.php">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Ingresa tu usuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
